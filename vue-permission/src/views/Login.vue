@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      <el-form class="login-form" :rules="rules" ref="loginForm">
+      <el-form class="login-form" :model="form" :rules="rules" ref="loginForm">
         <h3 class="text-align-center">系统登录</h3>
         <el-form-item>
           <el-input type="text"  v-model="form.username" placeholder="请输入用户名"/>
@@ -34,10 +34,7 @@ export default {
   methods: {
     login () {
       let _this = this
-      const flag = this.$refs['loginForm'].validate((valid) => {
-        console.log(valid)
-        return valid
-      })
+      // const flag = this.checkForm('loginForm')
       if (true) {
         this.$store.dispatch('login', this.form).then(rsp => {
           sessionStorage.token = rsp.data.token

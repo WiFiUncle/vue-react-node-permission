@@ -1192,6 +1192,11 @@ koa-static@^5.0.0:
     debug "^3.1.0"
     koa-send "^5.0.0"
 
+koa2-cors@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/koa2-cors/-/koa2-cors-2.0.6.tgz#9ad23df3a0b9bb84530b46f5944f3fb576086554"
+  integrity sha512-JRCcSM4lamM+8kvKGDKlesYk2ASrmSTczDtGUnIadqMgnHU4Ct5Gw7Bxt3w3m6d6dy3WN0PU4oMP43HbddDEWg==
+
 koa@^2.7.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/koa/-/koa-2.10.0.tgz#86a583ff280896dce3a36b0b6dae80f9559240d3"
@@ -1519,7 +1524,7 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
-nodemon@^1.19.1:
+nodemon@^1.19.4:
   version "1.19.4"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.19.4.tgz#56db5c607408e0fdf8920d2b444819af1aae0971"
   integrity sha512-VGPaqQBNk193lrJFotBU8nvWZPqEZY2eIzymy2jjY0fJ9qIsxA0sxQ8ATPl0gZC645gijYEc1jtZvpS8QWzJGQ==

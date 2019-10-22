@@ -1,34 +1,33 @@
-import requestData from '@/js/requestData/index';
+import requestData from '@/js/requestData/index'
 
-export default  {
+export default {
   state: {
-    /*token: getToken(),*/
-    userInfo: {},
+    /* token: getToken(), */
+    userInfo: {}
   },
-  mutations:{
+  mutations: {
   },
   actions: {
     // 登录
-    login({ commit }, params) {
+    login ({ commit }, params) {
       return new Promise((resolve, reject) => {
         requestData.USER.login(params).then(rsp => {
-            sessionStorage.userInfo = JSON.stringify(rsp.data);
-            resolve(rsp)
-          }).catch(error => {
-            reject(error)
-          })
-      });
-    },
-    getUserInfo({ commit }, params) {
-      return new Promise((resolve, reject) => {
-        requestData.USER.getUserInfo(params).then(rsp => {
-          sessionStorage.userInfo = JSON.stringify(rsp.data);
+          sessionStorage.userInfo = JSON.stringify(rsp.data)
           resolve(rsp)
         }).catch(error => {
           reject(error)
         })
-      });
+      })
     },
+    getUserInfo ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        requestData.USER.getUserInfo(params).then(rsp => {
+          sessionStorage.userInfo = JSON.stringify(rsp.data)
+          resolve(rsp)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
 }
-

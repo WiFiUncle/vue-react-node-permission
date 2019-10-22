@@ -1,7 +1,7 @@
 
-import AUTH_PRE from './apiPre';
-const module =  '/user';
-const prefix = AUTH_PRE + module;
+import AUTH_PRE from './apiPre'
+const module = '/user'
+const prefix = AUTH_PRE + module
 export default {
   LOGIN: AUTH_PRE + '/login',
   /**
@@ -26,5 +26,5 @@ export default {
   /**
    * 获取详情
    */
-  GET_USER_INFO: prefix + '/',
+  GET_USER_INFO: prefix + '/'
 }

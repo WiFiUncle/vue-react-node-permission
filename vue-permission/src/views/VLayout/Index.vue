@@ -31,9 +31,9 @@ import VAppHeader from './components/AppHeader'
 import VAppSidebar from './components/AppSidebar'
 import VAppMain from './components/AppMain'
 
-import userInfoMixins from "@/js/mixins/userInfoMixin.js";
-const CONTROL_PANEL = '/view/model'; //默认页面，不能关闭
+import userInfoMixins from '@/js/mixins/userInfoMixin.js' // 默认页面，不能关闭
 import menus from './menus'
+const CONTROL_PANEL = '/view/model'
 export default {
   name: 'layout',
   components: {
@@ -43,7 +43,7 @@ export default {
     VAppMain
   },
   mixins: [userInfoMixins],
-  data() {
+  data () {
     return {
       menus: menus,
       currentTab: '',
@@ -57,22 +57,22 @@ export default {
   },
   watch: {
     $route: {
-      handler(val) {
+      handler (val) {
         const routeInfo = this.currentRouteInfo(this.$route.name) || {
           menuName: this.$route.meta.title || this.$route.fullPath,
           menuUrl: this.$route.fullPath,
           menuCode: this.$route.name
         }
         // console.log(routeInfo)
-        this.currentTab = this.$route.name;
-        let isExistFlag = false;
+        this.currentTab = this.$route.name
+        let isExistFlag = false
         this.pageTabs.forEach(e => {
-          if(e.tabKey === this.currentTab) {
-            e.tabName = routeInfo.menuName;
-            isExistFlag = true;
+          if (e.tabKey === this.currentTab) {
+            e.tabName = routeInfo.menuName
+            isExistFlag = true
           }
         })
-        if(isExistFlag) return
+        if (isExistFlag) return
         var newRoute = {
           tabId: routeInfo.menuCode,
           tabName: routeInfo.menuName,
@@ -87,46 +87,46 @@ export default {
       },
       immediate: true
     },
-    removeNavTab(val) {
+    removeNavTab (val) {
       if (val) {
         this.removeTab(val)
-        //this.$store.dispatch('removeNavTab', '')
+        // this.$store.dispatch('removeNavTab', '')
       }
     },
     menus () {
-      return this.$store.getters.menuList;
-    },
+      return this.$store.getters.menuList
+    }
   },
-  created() {
+  created () {
     var _this = this
-    console.log(" AfterEnd Created");
+    console.log(' AfterEnd Created')
     _this.innerHeight = window.innerHeight
-    window.onresize = function() {
+    window.onresize = function () {
       if (_this.innerHeight !== window.innerHeight) {
         _this.innerHeight = window.innerHeight
       }
     }
   },
   computed: {
-    //...mapGetters(['removeNavTab']),
-    headerStyle() {
+    // ...mapGetters(['removeNavTab']),
+    headerStyle () {
       return `height:${this.headerHeight}px;line-height: ${
         this.headerHeight
       }px;`
     },
-    sidebarStyle() {
+    sidebarStyle () {
       return (
         'width:auto;height:' + (this.innerHeight - this.headerHeight) + 'px'
       )
     },
-    router_cache() {
-      return this.$route.meta.cache;// === true
+    router_cache () {
+      return this.$route.meta.cache// === true
     }
   },
   methods: {
-    currentRouteInfo(routeName) {
+    currentRouteInfo (routeName) {
       var arr = [];
-      (function fn(key, value, items, resultArr) {
+      (function fn (key, value, items, resultArr) {
         var checkResult = false
         for (let index = 0; index < items.length; index++) {
           const e = items[index]
@@ -134,32 +134,31 @@ export default {
             e[key] === value ||
             (e.children && fn(key, value, e.children, resultArr))
           if (checkResult) {
-            resultArr.push(e);
-            console.log(e);
+            resultArr.push(e)
+            console.log(e)
             break
           }
         }
         return checkResult
-      })('menuCode', routeName, this.menus, arr);
+      })('menuCode', routeName, this.menus, arr)
 
-      return arr[0];
-
+      return arr[0]
     },
-    clickTab(tab) {
+    clickTab (tab) {
       let currentRoute = this.pageTabs.find(e => e.tabKey === this.currentTab)
-      if (!currentRoute) return this.$router.push('/'); //没有找到
+      if (!currentRoute) return this.$router.push('/') // 没有找到
       this.$router.push(currentRoute.tabRoute)
     },
-    removeTab(targetName) {
-      this.pageTabs = this.pageTabs.filter(e => e.tabKey !== targetName);
+    removeTab (targetName) {
+      this.pageTabs = this.pageTabs.filter(e => e.tabKey !== targetName)
       const currentRoute =
         this.pageTabs.length > 0 &&
-        this.pageTabs[this.pageTabs.length - 1];
+        this.pageTabs[this.pageTabs.length - 1]
       if (!currentRoute) {
-        return this.$router.push(this.defaultPage);
+        return this.$router.push(this.defaultPage)
       }
-       this.currentTab = currentRoute.tabKey
-       this.$router.push(currentRoute.tabRoute)
+      this.currentTab = currentRoute.tabKey
+      this.$router.push(currentRoute.tabRoute)
     }
   }
 }

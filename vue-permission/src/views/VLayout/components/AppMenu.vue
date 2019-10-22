@@ -33,11 +33,7 @@ export default {
   },
   methods: {
     goRoute (item) {
-      let url = item.link || '/preview'
-      if (item.firstLev) {
-        url = url + '?firstLev=' + item.firstLev + '&secondLev=' + item.secondLev
-      }
-      this.$router.push(url)
+      this.$router.push(item.link)
     }
   }
 }

@@ -1,5 +1,5 @@
 
-import  USER  from "@/js/requestData/user";
+import USER from '@/js/requestData/user'
 export default {
-  USER,
+  USER
 }

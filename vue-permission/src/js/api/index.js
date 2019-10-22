@@ -1,6 +1,5 @@
 
-import USER from "./userApi";//用户接口模块
+import USER from './userApi'// 用户接口模块
 export default {
-  USER,
-};
-
+  USER
+}

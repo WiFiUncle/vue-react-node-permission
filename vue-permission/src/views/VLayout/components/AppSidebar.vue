@@ -14,7 +14,7 @@
 <script>
 import VAppMenu from './AppMenu.vue'
 import menus from '../menus.js'
-import userInfoMixins from "@/js/mixins/userInfoMixin.js";
+import userInfoMixins from '@/js/mixins/userInfoMixin.js'
 export default {
   name: 'SilderBar',
   components: {
@@ -23,13 +23,13 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      default: false,
+      default: false
     }
   },
   mixins: [userInfoMixins],
 
-  mounted() {
-    //this.initMenu();
+  mounted () {
+    // this.initMenu();
   },
   watch: {
     // userInfo(val) {
@@ -39,46 +39,46 @@ export default {
     //   })
     // }
   },
-  data() {
+  data () {
     return {
-      menus: menus,
+      menus: menus
     }
   },
   computed: {
-//    menus() {
-//      let list = this.$store.getters.menuList;
-//      return list;
-//    },
-    currentId() {
-//      var arr = []
-//      ;(function fn(key, value, items, resultArr) {
-//        var checkResult = false
-//        debugger;
-//        for (let index = 0; index < items.length; index++) {
-//          const e = items[index]
-//          checkResult =
-//            e[key] === value ||
-//            (e.children && fn(key, value, e.children, resultArr))
-//          if (checkResult) {
-//            resultArr.push(e)
-//            break
-//          }
-//        }
-//        return checkResult
-//      })(
-//        'menuCode',
-//        this.$route.meta.pname || this.$route.name,
-//        this.menus,
-//        arr
-//      )
-//      return arr.map(e => e.menuId)[0]
+    //    menus() {
+    //      let list = this.$store.getters.menuList;
+    //      return list;
+    //    },
+    currentId () {
+      //      var arr = []
+      //      ;(function fn(key, value, items, resultArr) {
+      //        var checkResult = false
+      //        debugger;
+      //        for (let index = 0; index < items.length; index++) {
+      //          const e = items[index]
+      //          checkResult =
+      //            e[key] === value ||
+      //            (e.children && fn(key, value, e.children, resultArr))
+      //          if (checkResult) {
+      //            resultArr.push(e)
+      //            break
+      //          }
+      //        }
+      //        return checkResult
+      //      })(
+      //        'menuCode',
+      //        this.$route.meta.pname || this.$route.name,
+      //        this.menus,
+      //        arr
+      //      )
+      //      return arr.map(e => e.menuId)[0]
     }
   },
   methods: {
     initMenu () {
-      if(!this.userInfo) return;
+      if (!this.userInfo) return
       this.menus = window.menus.filter(item => {
-        return item.role.includes(this.userInfo.roleKey);
+        return item.role.includes(this.userInfo.roleKey)
       })
     }
   }

@@ -2,14 +2,11 @@
   <el-row :gutter="24">
     <el-col :xs="10" :sm="8" :md="8">
       <div>
-        <router-link to="/" style="text-decoration: none;">
-          <span class="font-main-color ">国之正后台管理系统</span></router-link>
+          <span class="font-main-color ">{{projectName}}</span>
       </div>
     </el-col>
     <el-col :xs="10" :sm="14" :md="14" class="hidden-xs-only">
-      <div class="text-center">
-        &nbsp;
-      </div>
+      <div style="height: 1px"></div>
     </el-col>
     <el-col :xs="4" :sm="2" :md="2" class="text-right">
       <el-dropdown trigger="click" placement="bottom-end" @command="handleClick">
@@ -18,29 +15,29 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown"  class="font-main-color ">
-          <!--<el-dropdown-item command="updatepwd" divided>修改密码</el-dropdown-item>-->
+          <el-dropdown-item command="updatepwd" divided>修改密码</el-dropdown-item>
           <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
     <!--修改密码-->
-    <!--<el-dialog title="修改密码" :visible.sync="modifyPwdDialogVisible"-->
-               <!--class="update-pwd"-->
-               <!--width="400px">-->
-      <!--<UpdatePwd-->
-        <!--@status-change="statusChange"-->
-      <!--/>-->
-    <!--</el-dialog>-->
+    <el-dialog title="修改密码" :visible.sync="modifyPwdDialogVisible"
+               class="update-pwd"
+               width="400px">
+      <UpdatePwd
+        @status-change="statusChange"
+      />
+    </el-dialog>
   </el-row>
 </template>
 
 <script>
 import 'element-ui/lib/theme-chalk/display.css'
 
-// import { requestData } from '@/js/base'
+import { requestData } from '@/js/base'
 // import UpdatePwd from "@/components/UpdatePwd";;
 import userInfoMixins from '@/js/mixins/userInfoMixin.js'
-
+import BASE_CONFIG from '@/js/baseConfig'
 export default {
   name: 'AppHeader',
   components: {
@@ -51,7 +48,8 @@ export default {
   mixins: [userInfoMixins],
   data () {
     return {
-
+      projectName: 'XXX管理系统', // BASE_CONFIG.PROJECT_NAME,
+      modifyPwdDialogVisible: false
     }
   },
   methods: {
@@ -63,7 +61,6 @@ export default {
       //        error => {
       //
       //        });
-      location.reload()
       this.$router.push('/')
     },
     handleClick (e) {
@@ -79,7 +76,7 @@ export default {
       }
     },
     statusChange (type) {
-      if (type == 'cancel') {
+      if (type === 'cancel') {
         this.modifyPwdDialogVisible = false
       }
     }

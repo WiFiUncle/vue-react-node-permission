@@ -5,11 +5,11 @@ export default {
   /**
    * 用户登录
    */
-  login(data) {
+  login (data) {
     return request({
       url: API.USER.LOGIN,
       method: 'post',
-      data: data,
+      data: data
     })
   },
   /**
@@ -19,46 +19,46 @@ export default {
     return request({
       url: API.USER.GET_USER_LIST,
       method: 'post',
-      data: data,
+      data: data
     })
   },
-  addUser (data){
-    let url = API.USER.ADD_USER;
+  addUser (data) {
+    let url = API.USER.ADD_USER
     return request({
       url: url,
       method: 'post',
-      data:data,
+      data: data
     })
   },
   /***
    * 删除用户
    */
-  deleteUser(data){
+  deleteUser (data) {
     return request({
       url: API.USER.DELETE_USER + data.id,
-      method: 'delete',
+      method: 'delete'
     })
   },
   /**
    * 获取用户信息
    */
-  getUserInfo (params){
-    let url = API.USER.GET_USER_INFO + params.id;
+  getUserInfo (params) {
+    let url = API.USER.GET_USER_INFO + params.id
     return request({
       url: url,
-      method: 'get',
+      method: 'get'
     })
   },
   /**
    * 更新用户信息
    * @param data
    */
-  updateUserInfo (data){
-    let url = API.USER.UPDATE_USER;
+  updateUserInfo (data) {
+    let url = API.USER.UPDATE_USER
     return request({
       url: url,
       method: 'post',
-      data:data,
+      data: data
     })
-  },
+  }
 }
