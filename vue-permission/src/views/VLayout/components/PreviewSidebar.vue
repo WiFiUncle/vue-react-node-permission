@@ -14,7 +14,7 @@
 <script>
 import VAppMenu from './AppMenu.vue'
 import menus from '../menus'
-import userInfoMixins from '@/js/mixins/userInfoMixin.js'
+import userInfoMixins from "@/js/mixins/userInfoMixin.js";
 
 export default {
   name: 'SilderBar',
@@ -24,28 +24,28 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      default: false
+      default: false,
     },
     menus: {
       type: Array,
       default: () => {
-        return []
-      }
+        return [];
+      },
     }
   },
   mixins: [userInfoMixins],
 
-  mounted () {
-    this.initMenu()
+  mounted() {
+    this.initMenu();
   },
-  data () {
+  data() {
     return {
     }
   },
   computed: {
-    // currentId () {
-    //
-    // }
+    currentId() {
+
+    }
   },
   methods: {
     initMenu () {
@@ -84,5 +84,13 @@ export default {
     padding-left: 5px;
     background-repeat: no-repeat;
   }
+  $imgUrl: '../../../assets/images/mobile/';
+  .head {background-image: url( $imgUrl + "1-Yu-W.png")}
+  .thoracic {background-image: url( $imgUrl + "2-Yu-W.png")}
+  .upperLimb {background-image: url( $imgUrl + "3-Yu-W.png")}
+  .male {background-image: url( $imgUrl + "4-Yu-W.png")}
+  .female {background-image: url( $imgUrl + "5-Yu-W.png")}
+  .lowerLimb {background-image: url( $imgUrl + "6-Yu-W.png")}
+  .item7 {background-image: url( $imgUrl + "7-Yu-W.png")}
 
 </style>

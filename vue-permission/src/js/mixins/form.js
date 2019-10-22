@@ -1,12 +1,12 @@
 
 export default {
   methods: {
-    myCheckForm (formName) {
+    checkForm (formName) {
       return this.$refs[formName].validate((valid) => {
         return valid
       })
     },
-    myResetForm (formName) {
+    resetForm (formName) {
       this.$refs[formName].resetFields()
     }
   }

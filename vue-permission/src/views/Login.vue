@@ -2,29 +2,28 @@
   <div class="login">
       <el-form class="login-form" :rules="rules" ref="loginForm">
         <h3 class="text-align-center">系统登录</h3>
-<!--        <el-form-item>-->
-<!--          <el-input type="text"  v-model="form.username" placeholder="请输入用户名"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item>-->
-<!--          <el-input type="password" v-model="form.password" placeholder="请输入密码"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item>-->
-<!--         <el-button class="login-btn" type="primary" @click="login()" >登录</el-button>-->
-<!--        </el-form-item>-->
+        <el-form-item>
+          <el-input type="text"  v-model="form.username" placeholder="请输入用户名"/>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" v-model="form.password" placeholder="请输入密码"/>
+        </el-form-item>
+        <el-form-item>
+         <el-button class="login-btn" type="primary" @click="login()" >登录</el-button>
+        </el-form-item>
       </el-form>
   </div>
 </template>
 <script>
-import {Utils, formMixin} from '@/js/base'
-
+import {Utils } from '@/js/base'
 export default {
-  name: 'login',
-  mixins: [formMixin],
+  name: 'Login',
+  // mixins: [formMixin],
   data () {
     return {
       form: {
-        username: 'wux',
-        password: '1234321'
+        username: 'admin',
+        password: '123'
       },
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -35,21 +34,13 @@ export default {
   methods: {
     login () {
       let _this = this
-      let params = {
-        username: this.userName,
-        password: this.password
-      }
-      if (this.myCheckForm('loginForm')) {
-        debugger
-        this.$store.dispatch('Login', params).then(rsp => {
-          let token = 'Bearer ' + rsp.access_token
-          sessionStorage.token = token
-          sessionStorage.userName = _this.userName
-          if (_this.isRemember) {
-            sessionStorage.rememberUserName = _this.userName
-          } else {
-            sessionStorage.rememberUserName = ''
-          }
+      const flag = this.$refs['loginForm'].validate((valid) => {
+        console.log(valid)
+        return valid
+      })
+      if (true) {
+        this.$store.dispatch('login', this.form).then(rsp => {
+          sessionStorage.token = rsp.data.token
           _this.loginSuccess()
         })
           .catch(e => {
@@ -64,6 +55,15 @@ export default {
       let _this = this
       Utils.showSuccessMsg('登录成功')
       _this.$router.push({name: 'user'})
+    },
+    checkForm (formName) {
+      return this.$refs[formName].validate((valid) => {
+        console.log(valid)
+        return valid
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }
