@@ -1,11 +1,10 @@
-const Router = require('koa-router')
-const router = new Router()
-const UserController = require('../controller/user.js');
-//引入子路由
- const userRouter = require('./user.js');
+const router = require('koa-router')()
 
-//装载子路由
-router.use('/api', userRouter.routes(), userRouter.allowedMethods());
+// 引入子路由
+const userRouter = require('./user.js')
+const commonRouter = require('./common.js')
 
-//router.post('/login', UserController.login);
+// 装载子路由
+router.use('/api', userRouter.routes(), userRouter.allowedMethods())
+  .use('', commonRouter.routes(), commonRouter.allowedMethods())
 module.exports = router
