@@ -1,6 +1,6 @@
 /**
  * http://mongodb.github.io/node-mongodb-native
- * http://mongodb.github.io/node-mongodb-native/3.0/api/
+ * http://mongodb.github.io/node-mongodb-native/3.3/api/
  */
 
 // DB库
@@ -57,10 +57,11 @@ class Db {
       }
     })
   }
-  find (collectionName, json) {
+  // http://mongodb.github.io/node-mongodb-native/3.3/api/BulkOperationBase.html#find
+  find (collectionName, json, projection) {
     return new Promise((resolve, reject) => {
       this.connect().then((db) => {
-        var result = db.collection(collectionName).find(json)
+        const result = db.collection(collectionName).find(json, projection)
         result.toArray(function (err, docs) {
           if (err) {
             reject(err)
