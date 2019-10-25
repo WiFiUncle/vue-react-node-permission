@@ -1,3 +1,4 @@
+
 const SUCCESS_CODE = 0
 const MSG = '操作成功'
 const FAIL_CODE = -1
@@ -19,7 +20,7 @@ class ResultSuccessView extends ResultView {
   }
 }
 class ResultFailView extends ResultView {
-  constructor (status = FAIL_CODE, msg = FAIL_MSG, error = null, data = null) {
+  constructor ({status = FAIL_CODE, msg = FAIL_MSG, error = null, data = null}) {
     super()
     this.status = status
     this.message = msg
@@ -27,8 +28,17 @@ class ResultFailView extends ResultView {
   }
 }
 
+class ResultFailCodeView extends ResultView {
+  constructor ({status = FAIL_CODE, msg = FAIL_MSG, error = null, data = null}) {
+    super()
+    this.status = status
+    this.message = msg
+    this.error = error
+  }
+}
 module.exports = {
   ResultView,
   ResultSuccessView,
-  ResultFailView
+  ResultFailView,
+  ResultFailCodeView
 }

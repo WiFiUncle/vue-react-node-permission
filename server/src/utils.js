@@ -1,6 +1,8 @@
 /**
  * Created By wifi_uncle on 2019/10/23
  */
+const DB = require('./db.js')
+
 const Utils = {
   /**
    * 过滤空字段 (null/ '' / undefined)
@@ -15,6 +17,18 @@ const Utils = {
       }
     })
     return query
+  },
+  /**
+   * 验证id的合法性
+   * objectId
+   */
+  verifyId (objectId) {
+    try {
+      DB.getObjectId(objectId)
+      return true
+    } catch (e) {
+      return false
+    }
   }
 }
 module.exports = Utils

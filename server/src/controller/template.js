@@ -6,7 +6,7 @@
 const collectionName = 'user'
 const DB = require('../db.js')
 const ResultView = require('../result.js')
-const createToken = require('../token/createToken.js')
+const createToken = require('../token/create-token.js')
 
 // 数据库的操作
 
