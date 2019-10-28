@@ -3,7 +3,7 @@
  */
 const collectionName = 'user'
 const DB = require('../db.js')
-// const BASE = require('../base.js')
+const { Config } = require('../base.js')
 const { ResultSuccessView, ResultFailView } = require('../result.js')
 const Utils = require('../utils.js')
 const { USER_CODE, COMMON_CODE } = require('../code/index.js')
@@ -39,7 +39,12 @@ const getList = async (ctx) => {
     email: body.email
   }
   params = Utils.filterQuery(params)
-  let doc = await DB.find(collectionName, params, {password: 0})
+  let doc = await DB.find(collectionName, params, {isDeleted: 0})// 过滤已删除的. 不生效？
+
+  // 手动过滤
+  doc = doc.filter(item => {
+    return item.isDeleted !== 1
+  })
   let result = new ResultSuccessView(doc)
   ctx.body = result
 }
@@ -66,7 +71,8 @@ const insertOne = async (ctx) => {
     telephone: body.telephone,
     address: body.address,
     email: body.email,
-    password: 123456 // 默认123456
+    password: Config.DEFAULT_PWD, // 默认123456
+    isDelete: Config.NOT_DELETE
   }
   if (!params.username) {
     ctx.body = new ResultFailView({...USER_CODE.NAME_IS_EMPTY})
@@ -163,7 +169,7 @@ const updateOne = async (ctx) => {
  * @title 删除用户
  * @description
  * @method delete
- * @url /api/user/:id
+ * @url /api/users/:id
  * @param id 必填  string 用户id
  * @return {"status":0,"message":"操作成功","data": null,"error":null,"createTime":"2019-10-25T01:59:50.919Z"}
  */
@@ -178,7 +184,7 @@ const deleteOne = async (ctx) => {
     return
   }
 
-  let doc = await DB.update(collectionName, {'_id': DB.getObjectId(id)}, {password: '-1'})
+  let doc = await DB.update(collectionName, {'_id': DB.getObjectId(id)}, {isDeleted: Config.IS_DELETED})
   // let doc = await DB.remove(collectionName, {'_id': DB.getObjectId(id)})
   try {
     if (doc.result.ok) {

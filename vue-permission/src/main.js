@@ -7,6 +7,7 @@ import store from '@/store/index'
 import './plugin'
 
 Vue.config.productionTip = false
+Vue.prototype.$log = window.console.log
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
