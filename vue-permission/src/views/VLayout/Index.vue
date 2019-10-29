@@ -31,7 +31,7 @@ import VAppHeader from './components/AppHeader'
 import VAppSidebar from './components/AppSidebar'
 import VAppMain from './components/AppMain'
 
-import userInfoMixins from '@/js/mixins/userInfoMixin.js' // 默认页面，不能关闭
+import userInfoMixins from '@/js/mixins/userInfo-mixin.js' // 默认页面，不能关闭
 import menus from './menus'
 const CONTROL_PANEL = '/view/model'
 export default {

@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import {Utils } from '@/js/base'
+import { Utils } from '@/js/base'
 export default {
   name: 'Login',
   // mixins: [formMixin],
@@ -35,18 +35,18 @@ export default {
     login () {
       let _this = this
       // const flag = this.checkForm('loginForm')
-      if (true) {
-        this.$store.dispatch('login', this.form).then(rsp => {
-          sessionStorage.token = rsp.data.token
-          _this.loginSuccess()
+      // if (true) {
+      this.$store.dispatch('login', this.form).then(rsp => {
+        sessionStorage.token = rsp.data.token
+        _this.loginSuccess()
+      })
+        .catch(e => {
+          let msg = '帐号或密码错误'
+          msg = (e && e.data && e.data.message) ? e.data.message : msg
+          Utils.reqFailMsg(msg, e)
+          console.log(e)
         })
-          .catch(e => {
-            let msg = '帐号或密码错误'
-            msg = (e && e.data && e.data.message) ? e.data.message : msg
-            Utils.reqFailMsg(msg, e)
-            console.log(e)
-          })
-      }
+      // }
     },
     loginSuccess () {
       let _this = this

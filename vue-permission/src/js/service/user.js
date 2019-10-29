@@ -18,7 +18,7 @@ export default {
   getUserList (data) {
     return request({
       url: API.USER.GET_USER_LIST,
-      method: 'post',
+      method: 'get',
       data: data
     })
   },
@@ -35,7 +35,7 @@ export default {
    */
   deleteUser (data) {
     return request({
-      url: API.USER.DELETE_USER + data.id,
+      url: API.USER.DELETE_USER + data._id,
       method: 'delete'
     })
   },
@@ -43,7 +43,7 @@ export default {
    * 获取用户信息
    */
   getUserInfo (params) {
-    let url = API.USER.GET_USER_INFO + params.id
+    let url = API.USER.GET_USER_INFO + params._id
     return request({
       url: url,
       method: 'get'
@@ -54,7 +54,7 @@ export default {
    * @param data
    */
   updateUserInfo (data) {
-    let url = API.USER.UPDATE_USER
+    let url = API.USER.UPDATE_USER + data._id
     return request({
       url: url,
       method: 'post',

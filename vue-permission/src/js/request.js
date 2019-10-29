@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import { BASE_CONFIG } from './baseConfig'
+import { BASE_CONFIG } from './base-config'
 
 const SUCCESS_CODE = 0
 const BAD_REQUEST = 400
 const UNAUTHORIZED = 401
 const FORBIDDEN = 403
-const NOT_FOUND = 404
+// const NOT_FOUND = 404
 const TIME_OUT = 100 * 1000 // 请求超时 100s
 
 // 创建axios实例
@@ -32,10 +32,10 @@ request.interceptors.request.use(
  * 响应拦截器
  */
 request.interceptors.response.use(response => {
-  if (response && response.data && (response.data.status == SUCCESS_CODE)) {
+  if (response && response.data && (response.data.status === SUCCESS_CODE)) {
     return response.data
   } else {
-    let errorMsg = (response && response.data && response.data.msg) ? response.data.msg : '网络异常'// response.data.result;
+    let errorMsg = (response && response.data && response.data.message) ? response.data.message : '网络异常'// response.data.result;
     let option = {
       type: 'error',
       message: '操作失败!  错误原因：' + errorMsg,

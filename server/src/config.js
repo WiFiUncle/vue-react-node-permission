@@ -1,14 +1,11 @@
 
 /* 配置文件 */
 const SERVER_PORT = 8082
-const SUCCESS = 0
-const RESPONSE = {
-  SUCCESS: 200,
-  NOT_FOUND11: 401,
-  NOT_FOUND: 404
-}
+const IS_DELETED = 1
+const NOT_DELETE = 0
 module.exports = {
-  SUCCESS,
-  RESPONSE,
-  SERVER_PORT
+  SERVER_PORT,
+  IS_DELETED,
+  NOT_DELETE,
+  DEFAULT_PWD: 123456
 }

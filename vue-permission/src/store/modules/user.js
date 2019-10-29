@@ -1,4 +1,4 @@
-import requestData from '@/js/requestData/index'
+import requestData from '@/js/service/index'
 
 export default {
   state: {

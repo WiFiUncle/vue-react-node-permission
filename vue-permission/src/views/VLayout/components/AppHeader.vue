@@ -34,10 +34,10 @@
 <script>
 import 'element-ui/lib/theme-chalk/display.css'
 
-import { requestData } from '@/js/base'
+// import { Service } from '@/js/base'
 // import UpdatePwd from "@/components/UpdatePwd";;
-import userInfoMixins from '@/js/mixins/userInfoMixin.js'
-import BASE_CONFIG from '@/js/baseConfig'
+import userInfoMixins from '@/js/mixins/userInfo-mixin.js'
+// import BASE_CONFIG from '@/js/baseConfig'
 export default {
   name: 'AppHeader',
   components: {
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     logout () {
-      //      requestData.USER.logout({},
+      //      service.USER.logout({},
       //        rsp => {
       //          sessionStorage.token = "";
       //        },

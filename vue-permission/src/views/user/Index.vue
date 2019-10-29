@@ -1,7 +1,7 @@
 <template>
     <div class="main" >
       <div class="search-container">
-        <search-user v-model="params"></search-user>
+        <search-user v-model="params" ref="searchUser"></search-user>
         <el-button type="primary" size="mini" @click="search()">
           查询
         </el-button>
@@ -25,10 +25,12 @@
 </template>
 <script>
 
-import { Common, requestData } from '@/js/base'
+import { Utils, Service } from '@/js/base'
 import UserManageTable from '@/views/user/components/UserManageTable.vue'
 import AddUser from '@/views/user/components/AddUser.vue'
 import SearchUser from '@/views/user/components/Search.vue'
+// import { formMixins } from '@/js/mixins'
+
 export default {
   name: 'UserManage',
   components: {
@@ -36,6 +38,7 @@ export default {
     UserManageTable,
     AddUser
   },
+  // mixins: [formMixins],
   data () {
     return {
       params: {
@@ -62,13 +65,15 @@ export default {
     },
     add () {
       let params = JSON.parse(JSON.stringify(this.addUserForm))
-      delete params.role
-      requestData.USER.addUser(params).then(rsp => {
-        Common.showSuccessMsg('添加成功！')
+      // let flag = this.$refs.searchUser.checkForm()
+
+      Service.USER.addUser(params).then(rsp => {
+        Utils.showSuccessMsg('添加成功！')
         this.addUserDialogFormVisible = false
         this.$refs.table.getList()
       }).catch(error => {
-        Common.showFailMsg('添加失败！')
+        this.$log(error)
+        // Utils.showFailMsg('添加失败！')
         this.addUserDialogFormVisible = false
       })
     },
