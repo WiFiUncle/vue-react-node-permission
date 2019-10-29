@@ -65,7 +65,7 @@ export default {
     },
     add () {
       let params = JSON.parse(JSON.stringify(this.addUserForm))
-     // let flag = this.$refs.searchUser.checkForm()
+      // let flag = this.$refs.searchUser.checkForm()
 
       Service.USER.addUser(params).then(rsp => {
         Utils.showSuccessMsg('添加成功！')

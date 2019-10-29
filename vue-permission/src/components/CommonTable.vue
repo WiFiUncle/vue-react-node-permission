@@ -2,11 +2,12 @@
   <div class="table-container">
     <el-table
       :data="data"
+      v-loading="loading"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
         type="index"
-        label="序11号"
+        label="序号"
         width="50">
       </el-table-column>
       <el-table-column
@@ -47,6 +48,10 @@ export default {
     MyPagination
   },
   props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
     /**
      * 列表数据
      */

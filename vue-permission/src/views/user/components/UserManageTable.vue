@@ -3,6 +3,7 @@
     <CommonTable
       :data="tableData"
       :columns="columns"
+      :loading="loading"
       :pagination= 'pagination'
       @page-change="pageChange">
       <div slot="handle">
@@ -15,19 +16,15 @@
 
 <script>
 import {Service, Utils, Config} from '@/js/base'
-import MyPagination from '@/components/MyPagination.vue'
 import CommonTable from '@/components/CommonTable.vue'
-import { paginationMixin } from '@/js/mixins'
-
 export default {
   name: 'userManageTable',
   components: {
-    MyPagination,
     CommonTable
   },
   props: {
   },
-  mixins: [paginationMixin],
+  mixins: [],
   data () {
     return {
       columns: [{
