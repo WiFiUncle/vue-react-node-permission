@@ -54,7 +54,47 @@
     有b_user_add权限值则显示该按钮，没有则不渲染。
  (vue 设置自定义指令v-has  react  权限 && 按钮)   
 
- 
+
+## 错误码定义说明
+
+### 全局验证码
+
+#### 命名规则: 一级错误码(2位数) + 二级错误码(2位数) + 具体错误码(2位数)
+
+#### 一级错误码
+| 一级错误码  | 名称  | 关键字| 备注|
+| ---- | ------  | ----| ----|
+|  01 | 通用类  | |
+|  02 | 用户类  | |
+|  03 | 角色类  | |
+|  04 | 菜单类  | |
+
+first-level.js
+
+
+### 细分错误码
+
+| 二级错误码  | 名称  | 关键字| 备注|
+| ---- | ------  | ----| ----|
+|  00 |  通用 |   | |
+|  01 | 参数缺失  | MISS_PARAMS| |
+|  02 | 字段类型错误 | TYPE_INVALID | |
+|  03 | 字段值不能为空  | IS_EMPTY | |
+|  04 | 字段值已存在  | IS_EXIST| |
+|  05 | 新增数据失败  | INSERT_FAIL | |
+| 06 | 更新数据失败  | UPDATE_FAIL | |
+| 07 | 删除数据失败  | DELETE_FAIL | |
+| 08 | 获取数据失败  | SEARCH_FAIL | |
+
+[详细](https://github.com/WiFiUncle/vue-react-node-permission/blob/master/server/src/code/错误码定义说明.md)
+
+
+
+
+
+
+
+
 ## react-permission
 
 http://localhost:3000/

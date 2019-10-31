@@ -15,11 +15,11 @@ export default {
   /**
    *  获取用户列表
    * */
-  getUserList (data) {
+  getUserList (params) {
     return request({
       url: API.USER.GET_USER_LIST,
       method: 'get',
-      data: data
+      params: params
     })
   },
   addUser (data) {

@@ -2,7 +2,8 @@
  * Created By wifi_uncle on 2019/10/23
  */
 const DB = require('./db.js')
-
+const moment = require('moment')
+const FORMAT = 'YYYY-MM-DD HH:MM:SS'
 const Utils = {
   /**
    * 过滤空字段 (null/ '' / undefined)
@@ -29,6 +30,10 @@ const Utils = {
     } catch (e) {
       return false
     }
+  },
+  getTime (format = FORMAT) {
+    let date = moment().format()
+    return date
   }
 }
 module.exports = Utils

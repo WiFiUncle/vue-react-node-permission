@@ -10,6 +10,13 @@ const { USER_CODE, COMMON_CODE } = require('../code/index.js')
 
 // const UserCol = require('../model/user.js')
 
+const getTotal = async (query = {}) => {
+  delete query.pageSize
+  delete query.pageNo
+  let doc = await DB.find(collectionName, query)
+  let total = doc.length
+  return total || 0
+}
 /**
  * showdoc
  * @catalog 用户管理
@@ -20,7 +27,7 @@ const { USER_CODE, COMMON_CODE } = require('../code/index.js')
  * @param username 否  string 用户名
  * @param password 否  string 密码
  * @param name 可选 string 用户昵称
- * @return {"status":0,"message":"操作成功","data":[{"_id":"5db256be99c05f5dc8f4ad8e","username":"zhangsan","telephone":"18866668888","address":"湖南省长沙市岳麓区XX街道","email":"wifi@163.com"}],"error":null,"createTime":"2019-10-25T01:59:50.919Z"}
+ * @return {"status":0,"message":"操作成功","data":{"list":[{"_id":"5db6b92922bb0081e0ebabb1","username":"wifi_uncle","telephone":"18866668888","email":"aaa@163.com"}],"total":1},"error":null,"createTime":"2019-10-30T05:48:16.928Z"}
  * @return_param _id string 用户id
  * @return_param username string 用户名
  * @return_param email string 邮箱
@@ -30,22 +37,17 @@ const { USER_CODE, COMMON_CODE } = require('../code/index.js')
  * @number 99
  */
 const getList = async (ctx) => {
-  let body = ctx.request.body || {}
-  let params = {
-    username: body.username,
-    sex: body.sex,
-    telephone: body.telephone,
-    address: body.address,
-    email: body.email
+  let query = ctx.request.query
+  let options = {
+    projection: {isDeleted: 0, password: 0}
   }
-  params = Utils.filterQuery(params)
-  let doc = await DB.find(collectionName, params, {isDeleted: 0})// 过滤已删除的. 不生效？
-
-  // 手动过滤
-  doc = doc.filter(item => {
-    return item.isDeleted !== 1
+  query = Utils.filterQuery(query)
+  let total = await getTotal(query)
+  let doc = await DB.find(collectionName, query, options)
+  let result = new ResultSuccessView({
+    list: doc,
+    total
   })
-  let result = new ResultSuccessView(doc)
   ctx.body = result
 }
 
@@ -72,15 +74,13 @@ const insertOne = async (ctx) => {
     address: body.address,
     email: body.email,
     password: Config.DEFAULT_PWD, // 默认123456
-    isDelete: Config.NOT_DELETE
+    isDeleted: Config.NOT_DELETE
   }
   if (!params.username) {
     ctx.body = new ResultFailView({...USER_CODE.NAME_IS_EMPTY})
-    return
   }
   if (!params.email) {
     ctx.body = new ResultFailView({...USER_CODE.EMAIL_IS_EMPTY})
-    return
   }
 
   let doc = await DB.find(collectionName, {

@@ -60,7 +60,7 @@ export default {
     },
     getList (params = this.params) {
       let _this = this
-      this.params.pageNo = this.pagination.current
+      params.pageNo = this.pagination.current
       _this.loading = true
       Service.USER.getUserList(params).then(rsp => {
         _this.tableData = rsp.data

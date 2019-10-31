@@ -10,7 +10,13 @@ const ObjectID = MongoDB.ObjectID
 const assert = require('assert')
 const Config = require('./dbConfig.js')
 const mongoose = require('mongoose')
-
+const moment = require('moment')
+const LIMIT = 100
+const FORMAT = 'YYYY-MM-DD HH:MM:SS'
+const getTime = (format = FORMAT) => {
+  let date = moment().format(format)
+  return date
+}
 mongoose.connect(Config.dbUrl + Config.dbName, {useNewUrlParser: true}, function (err) {
   if (err) {
     console.log('Connection Error:' + err)
@@ -57,11 +63,22 @@ class Db {
       }
     })
   }
+  // https://docs.mongodb.com/manual/tutorial/query-documents/
   // http://mongodb.github.io/node-mongodb-native/3.3/api/BulkOperationBase.html#find
-  find (collectionName, json, projection) {
+  find (collectionName, json, options = {}) {
     return new Promise((resolve, reject) => {
       this.connect().then((db) => {
-        const result = db.collection(collectionName).find(json, projection)
+        json.pageNo = json.pageNo || '1'
+        const limit = parseInt(json.pageSize) || LIMIT
+        const skip = parseInt(json.pageSize) * (parseInt(json.pageNo) - 1) || 0
+        delete json.pageSize
+        delete json.pageNo
+        options.sort = options.sort ? options.sort : {'createTime': 1}
+        const result = db.collection(collectionName).find(json, options).limit(limit).skip(skip)
+        // const result = db.collection(collectionName).find(json, {
+        //   limit: 5,
+        //   skip: 0
+        // }) // 都可以分页
         result.toArray(function (err, docs) {
           if (err) {
             reject(err)
@@ -86,7 +103,8 @@ class Db {
   //     })
   //   })
   // }
-  update (collectionName, json1, json2) {
+  update (collectionName, json1 = {}, json2 = {}) {
+    json2.modifyTime = getTime()
     return new Promise((resolve, reject) => {
       this.connect().then((db) => {
         // db.user.update({},{$set:{}})
@@ -103,6 +121,7 @@ class Db {
     })
   }
   insert (collectionName, json) {
+    json.createTime = getTime()
     return new Promise((resolve, reject) => {
       this.connect().then((db) => {
         db.collection(collectionName).insertOne(json, function (err, result) {

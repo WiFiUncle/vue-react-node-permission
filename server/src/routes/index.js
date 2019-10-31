@@ -6,5 +6,5 @@ const commonRouter = require('./common.js')
 
 // 装载子路由
 router.use('/api', userRouter.routes(), userRouter.allowedMethods())
-  .use('', commonRouter.routes(), commonRouter.allowedMethods())
+  .use('/api', commonRouter.routes(), commonRouter.allowedMethods())
 module.exports = router
