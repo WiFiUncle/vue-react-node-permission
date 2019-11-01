@@ -5,7 +5,7 @@
       :columns="columns"
       :loading="loading"
       :pagination= 'pagination'
-      @page-change="pageChange">
+      @page-change="pageChange"  >
       <div slot="handle" slot-scope="scope">
         <el-button @click="detailsBtnClick(scope.row)" type="primary" size="mini" >详情</el-button>
         <el-button @click="updateBtnClick(scope.row)" type="warning" size="mini" >修改</el-button>
@@ -102,6 +102,7 @@ export default {
     },
     pageChange (val) {
       this.pagination.current = val.pageNo
+      this.params.pageSize = val.pageSize
       this.getList()
     },
 

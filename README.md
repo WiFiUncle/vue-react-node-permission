@@ -107,8 +107,12 @@ http://localhost:8081/
 
 http://localhost:8082/
 
+## 一键生成接口文档
+使用showdoc配合响应注释，双击/server/src/showdoc_api.sh
+
 ### 接口文档
 https://www.showdoc.cc/nodePermission
+
 
 `npm install -g koa-generator`
 

@@ -119,6 +119,7 @@ export default {
     },
     pageSizeChange (pageSize) {
       this.params.pageSize = pageSize
+      this.$emit('size-change', pageSize)
       this.pageChange(this.params)
     },
     pageChange (val) {

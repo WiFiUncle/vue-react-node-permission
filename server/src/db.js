@@ -74,11 +74,11 @@ class Db {
         delete json.pageSize
         delete json.pageNo
         options.sort = options.sort ? options.sort : {'createTime': 1}
-        const result = db.collection(collectionName).find(json, options).limit(limit).skip(skip)
-        // const result = db.collection(collectionName).find(json, {
-        //   limit: 5,
-        //   skip: 0
-        // }) // 都可以分页
+        // const result = db.collection(collectionName).find(json, options).limit(5).skip(5)
+        const result = db.collection(collectionName).find(json, {
+          limit: limit,
+          skip: skip
+        }) // 都可以分页
         result.toArray(function (err, docs) {
           if (err) {
             reject(err)

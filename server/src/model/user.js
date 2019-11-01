@@ -30,6 +30,14 @@ const userSchema = new Schema({
   isDeleted: {
     type: Number,
     default: 0
+  },
+  pageSize: {
+    type: Number,
+    default: 10
+  },
+  pageNo: {
+    type: Number,
+    default: 1
   }
 }, {
   collection: 'user',
