@@ -50,5 +50,12 @@ let options = {
 // http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#find
 ```
 
+### mongodb nodejs 使用变量模糊查询
+```js
+ query.username = new RegExp(query.username)
+
+ query.username = {'$regex': eval(`/${query.username}/`)} // 不推荐
+
+```
 
 

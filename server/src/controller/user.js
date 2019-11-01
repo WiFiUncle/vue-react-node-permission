@@ -41,7 +41,14 @@ const getList = async (ctx) => {
   let options = {
     projection: {isDeleted: 0, password: 0}
   }
+
+  query.username = query.username ? new RegExp(query.username) : '' //  query.email = {'$regex': eval(`/${query.email}/`)} // 模糊查询
+  query.email = query.email ? new RegExp(query.email) : ''
+  query.telephone = query.telephone ? new RegExp(query.telephone) : ''
+  query.address = query.address ? new RegExp(query.address) : ''
+  // todo 输入字符需转义
   query = Utils.filterQuery(query)
+  query.isDeleted = Config.NOT_DELETE // 过滤已删除
   let total = await getTotal(query)
   let doc = await DB.find(collectionName, query, options)
   let result = new ResultSuccessView({
@@ -78,10 +85,13 @@ const insertOne = async (ctx) => {
   }
   if (!params.username) {
     ctx.body = new ResultFailView({...USER_CODE.NAME_IS_EMPTY})
+    return
   }
   if (!params.email) {
     ctx.body = new ResultFailView({...USER_CODE.EMAIL_IS_EMPTY})
+    return
   }
+  // todo 邮箱验证、手机号码验证
 
   let doc = await DB.find(collectionName, {
     $or: [{'username': params.username}] //
@@ -138,7 +148,7 @@ const updateOne = async (ctx) => {
     ctx.body = new ResultFailView({...USER_CODE.ID_IS_EMPTY})
     return
   }
-  if (Utils.verifyId(id)) {
+  if (!Utils.verifyId(id)) {
     ctx.body = new ResultFailView({...COMMON_CODE.INVALID_ID})
     return
   }
@@ -183,8 +193,9 @@ const deleteOne = async (ctx) => {
     ctx.body = new ResultFailView({...COMMON_CODE.INVALID_ID})
     return
   }
-
+  // 逻辑删除，标记位
   let doc = await DB.update(collectionName, {'_id': DB.getObjectId(id)}, {isDeleted: Config.IS_DELETED})
+
   // let doc = await DB.remove(collectionName, {'_id': DB.getObjectId(id)})
   try {
     if (doc.result.ok) {
@@ -215,7 +226,10 @@ const getInfo = async (ctx) => {
     ctx.body = new ResultFailView({...COMMON_CODE.INVALID_ID})
     return
   }
-  let doc = await DB.find(collectionName, {'_id': DB.getObjectId(id)}, {password: 0})
+  let options = {
+    projection: {isDeleted: 0, password: 0}
+  }
+  let doc = await DB.find(collectionName, {'_id': DB.getObjectId(id)}, options)
   try {
     if (doc) {
       ctx.body = new ResultSuccessView(doc[0])

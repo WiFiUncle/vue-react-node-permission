@@ -1,13 +1,16 @@
 <template>
     <el-form :model="form" :inline="true">
-        <el-form-item label="用户名：" class="inline-block">
-          <el-input v-model="form.name" clearable @keyup.enter.native="search"></el-input>
+        <el-form-item label="用户名：" >
+          <el-input v-model="form.username" clearable @keyup.enter.native="search"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱: " class="inline-block">
+        <el-form-item label="邮箱: ">
           <el-input v-model="form.email" clearable @keyup.enter.native="search"></el-input>
         </el-form-item>
-        <el-form-item label="手机号: " class="inline-block">
+        <el-form-item label="手机号: ">
           <el-input v-model="form.telephone" clearable @keyup.enter.native="search"></el-input>
+        </el-form-item>
+        <el-form-item label="地址: ">
+          <el-input v-model="form.address" clearable @keyup.enter.native="search"></el-input>
         </el-form-item>
     </el-form>
 </template>
@@ -20,17 +23,18 @@ export default {
   data () {
     return {
       form: {
-        name: '',
+        username: '',
         email: '',
         telephone: '',
-        realName: ''
+        address: ''
       }
     }
   },
   watch: {
     form: {
-      handler (val) {
-        this.search(val)
+      handler () {
+        this.$emit('input', this.form)
+        this.$emit('change', this.form)
       },
       immediate: true,
       deep: true
@@ -40,9 +44,8 @@ export default {
     init () {
       this.form = {...this.form, ...this.value}
     },
-    search (val = this.form) {
-      this.$emit('input', val)
-      this.$emit('change', val)
+    search () {
+      this.$parent.search()
     }
   }
 }

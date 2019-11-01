@@ -22,7 +22,7 @@
         label="操作"
         width="240">
         <template slot-scope="scope" >
-          <slot name="handle"></slot>
+          <slot name="handle" :row="scope.row"></slot>
         </template>
       </el-table-column>
     </el-table>

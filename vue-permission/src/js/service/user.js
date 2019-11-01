@@ -57,7 +57,7 @@ export default {
     let url = API.USER.UPDATE_USER + data._id
     return request({
       url: url,
-      method: 'post',
+      method: 'put',
       data: data
     })
   }

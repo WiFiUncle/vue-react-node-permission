@@ -44,7 +44,8 @@ export default {
       params: {
         username: '',
         email: '',
-        telephone: ''
+        telephone: '',
+        address: ''
       },
       titleDialog: '',
       addUserForm: {
@@ -70,7 +71,7 @@ export default {
       Service.USER.addUser(params).then(rsp => {
         Utils.showSuccessMsg('添加成功！')
         this.addUserDialogFormVisible = false
-        this.$refs.table.getList()
+        this.$refs.table.getList(this.params)
       }).catch(error => {
         this.$log(error)
         // Utils.showFailMsg('添加失败！')

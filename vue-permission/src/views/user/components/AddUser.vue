@@ -1,15 +1,18 @@
 <template>
     <el-form :model="form" :inline="inline" :rules="defaultRules" ref="form">
-      <el-form-item label="用户1名" prop="username" >
+      <el-form-item label="用户名" prop="username" required   v-if="!hideItem.username">
         <el-input v-model="form.username"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱"    prop="email" >
+      <el-form-item label="邮箱" prop="email" required   v-if="!hideItem.email">
         <el-input v-model="form.email" ></el-input>
       </el-form-item>
-      <el-form-item label="手机号"    prop="telephone" >
+      <el-form-item label="手机号" prop="telephone"   v-if="!hideItem.telephone">
         <el-input v-model="form.telephone" type="telephone"></el-input>
       </el-form-item>
-      <el-form-item label="密码"  required prop="password"  >
+      <el-form-item label="地址" prop="telephone"   v-if="!hideItem.address">
+        <el-input v-model="form.address" type="telephone"></el-input>
+      </el-form-item>
+      <el-form-item label="密码"  prop="password"  v-if="!hideItem.password">
         <el-input v-model="form.password"></el-input>
       </el-form-item>
     </el-form>
@@ -38,6 +41,12 @@ export default {
     inline: {
       type: Boolean,
       default: true
+    },
+    hideItem: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   data () {
@@ -66,6 +75,13 @@ export default {
       handler (val) {
         this.$emit('input', val)
         this.$emit('change', val)
+      },
+      immediate: true,
+      deep: true
+    },
+    value: {
+      handler (val) {
+        this.form = val
       },
       immediate: true,
       deep: true

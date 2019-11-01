@@ -49,30 +49,29 @@ export default {
     //      let list = this.$store.getters.menuList;
     //      return list;
     //    },
-    // currentId () {
-    //      var arr = []
-    //      ;(function fn(key, value, items, resultArr) {
-    //        var checkResult = false
-    //        debugger;
-    //        for (let index = 0; index < items.length; index++) {
-    //          const e = items[index]
-    //          checkResult =
-    //            e[key] === value ||
-    //            (e.children && fn(key, value, e.children, resultArr))
-    //          if (checkResult) {
-    //            resultArr.push(e)
-    //            break
-    //          }
-    //        }
-    //        return checkResult
-    //      })(
-    //        'menuCode',
-    //        this.$route.meta.pname || this.$route.name,
-    //        this.menus,
-    //        arr
-    //      )
-    //      return arr.map(e => e.menuId)[0]
-    // }
+    currentId () {
+      var arr = []
+         ;(function fn (key, value, items, resultArr) {
+        var checkResult = false
+        for (let index = 0; index < items.length; index++) {
+          const e = items[index]
+          checkResult =
+               e[key] === value ||
+               (e.children && fn(key, value, e.children, resultArr))
+          if (checkResult) {
+            resultArr.push(e)
+            break
+          }
+        }
+        return checkResult
+      })(
+        'menuCode',
+        this.$route.meta.pname || this.$route.name,
+        this.menus,
+        arr
+      )
+      return arr.map(e => e.menuId)[0]
+    }
   },
   methods: {
     initMenu () {
