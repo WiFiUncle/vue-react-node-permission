@@ -11,9 +11,10 @@ const { USER_CODE, COMMON_CODE } = require('../code/index.js')
 // const UserCol = require('../model/user.js')
 
 const getTotal = async (query = {}) => {
-  delete query.pageSize
-  delete query.pageNo
-  let doc = await DB.find(collectionName, query)
+  const q = JSON.parse(JSON.stringify(query)) //
+  delete q.pageSize
+  delete q.pageNo
+  let doc = await DB.find(collectionName, q)
   let total = doc.length
   return total || 0
 }
