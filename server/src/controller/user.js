@@ -50,8 +50,9 @@ const getList = async (ctx) => {
   // todo 输入字符需转义
   query = Utils.filterQuery(query)
   query.isDeleted = Config.NOT_DELETE // 过滤已删除
-  let total = await getTotal(query)
+
   let doc = await DB.find(collectionName, query, options)
+  let total = await getTotal(query)
   let result = new ResultSuccessView({
     list: doc,
     total

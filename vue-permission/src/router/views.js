@@ -1,7 +1,7 @@
 
 import User from '@/views/user'
 import Menu from '@/views/menu'
-import Role from '@/views/role'
+import Role from '@/views/role/Index'
 export default [{
   path: 'user',
   name: 'user',

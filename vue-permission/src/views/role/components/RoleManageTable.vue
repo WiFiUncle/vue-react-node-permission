@@ -15,7 +15,7 @@
     <!--用户弹框-->
     <el-dialog :title="titleDialog" :visible.sync="userInfoVisible"
                width="400px">
-      <add-user v-model="userInfo" :hide-item="hideItem"></add-user>
+      <add-role v-model="userInfo" :hide-item="hideItem"></add-role>
       <div slot="footer" class="dialog-footer" v-if="handleType === HANDLE_TYPE.UPDATE">
         <el-button @click="cancelUserInfo">取 消</el-button>
         <el-button type="primary" @click="confirmUserInfo()">确 定</el-button>
@@ -27,7 +27,7 @@
 <script>
 import {Service, Utils, Config} from '@/js/base'
 import CommonTable from '@/components/CommonTable.vue'
-import AddUser from '@/views/user/components/AddUser.vue'
+import AddRole from '@/views/user/components/AddRole.vue'
 const HANDLE_TYPE = {
   DETAIL: 'DETAIL',
   UPDATE: 'UPDATE',
@@ -37,7 +37,7 @@ export default {
   name: 'userManageTable',
   components: {
     CommonTable,
-    AddUser
+    AddRole,
   },
   props: {
   },
