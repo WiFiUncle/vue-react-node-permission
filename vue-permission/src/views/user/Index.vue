@@ -69,7 +69,7 @@ export default {
       // let flag = this.$refs.searchUser.checkForm()
 
       Service.USER.addUser(params).then(rsp => {
-        Utils.showSuccessMsg('添加成功！')
+        Utils.showSuccessMsg('添加成功！初始秘密为123456')
         this.addUserDialogFormVisible = false
         this.$refs.table.getList(this.params)
       }).catch(error => {

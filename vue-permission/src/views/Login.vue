@@ -6,7 +6,7 @@
           <el-input type="text"  v-model="form.username" placeholder="请输入用户名"/>
         </el-form-item>
         <el-form-item>
-          <el-input type="password" v-model="form.password" placeholder="请输入密码"/>
+          <el-input type="password" v-model="form.pwd" placeholder="请输入密码"/>
         </el-form-item>
         <el-form-item>
          <el-button class="login-btn" type="primary" @click="login()" >登录</el-button>
@@ -16,6 +16,7 @@
 </template>
 <script>
 import { Utils } from '@/js/base'
+import md5 from 'md5'
 export default {
   name: 'Login',
   // mixins: [formMixin],
@@ -23,11 +24,11 @@ export default {
     return {
       form: {
         username: 'admin',
-        password: '123'
+        pwd: '123'
       },
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
-        password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+        pwd: [{required: true, message: '请输入密码', trigger: 'blur'}]
       }
     }
   },
@@ -36,7 +37,10 @@ export default {
       let _this = this
       // const flag = this.checkForm('loginForm')
       // if (true) {
-      this.$store.dispatch('login', this.form).then(rsp => {
+      this.$store.dispatch('login', {
+        username: this.form.username,
+        password: md5(this.form.pwd)
+      }).then(rsp => {
         sessionStorage.token = rsp.data.token
         _this.loginSuccess()
       })

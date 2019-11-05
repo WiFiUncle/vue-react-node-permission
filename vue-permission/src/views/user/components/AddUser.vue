@@ -12,7 +12,7 @@
       <el-form-item label="地址" prop="telephone"   v-if="!hideItem.address">
         <el-input v-model="form.address" type="telephone"></el-input>
       </el-form-item>
-      <el-form-item label="密码"  prop="password"  v-if="!hideItem.password">
+      <el-form-item label="密码"  prop="password"  v-if="false">
         <el-input v-model="form.password"></el-input>
       </el-form-item>
     </el-form>
