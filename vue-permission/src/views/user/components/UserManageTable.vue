@@ -116,9 +116,7 @@ export default {
     detailsBtnClick (row) {
       const _this = this
       this.handleType = HANDLE_TYPE.DETAIL
-      Service.USER.getUserInfo({
-        _id: row._id
-      }).then(rsp => {
+      Service.USER.getUserInfo(row._id).then(rsp => {
         _this.titleDialog = '查看详情'
         _this.userInfoVisible = true
         _this.userInfo = rsp.data
