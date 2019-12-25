@@ -18,13 +18,11 @@ const request = axios.create({
 // 添加一个请求拦截器
 request.interceptors.request.use(
   config => {
-  // Do something before request is sent
     if (sessionStorage.token) {
       config.headers.common['Authorization'] = sessionStorage.token
     }
     return config
   }, error => {
-    // Do something with request error
     Promise.reject(error)
   })
 

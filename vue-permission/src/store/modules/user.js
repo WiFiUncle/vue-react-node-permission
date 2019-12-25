@@ -19,9 +19,9 @@ export default {
         })
       })
     },
-    getUserInfo ({ commit }, params) {
+    getUserInfo ({ commit }, id) {
       return new Promise((resolve, reject) => {
-        requestData.USER.getUserInfo(params).then(rsp => {
+        requestData.USER.getUserInfo(id).then(rsp => {
           sessionStorage.userInfo = JSON.stringify(rsp.data)
           resolve(rsp)
         }).catch(error => {

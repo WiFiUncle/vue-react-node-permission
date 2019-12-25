@@ -15,7 +15,7 @@
       <!--添加用户弹框-->
       <el-dialog :title="titleDialog" :visible.sync="addUserDialogFormVisible"
                  width="400px">
-        <add-user v-model="addUserForm"></add-user>
+        <add-user v-model="addUserForm" ref="searchUser"></add-user>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cancelAddUser">取 消</el-button>
           <el-button type="primary" @click="add()">确 定</el-button>
@@ -29,7 +29,7 @@ import { Utils, Service } from '@/js/base'
 import UserManageTable from '@/views/user/components/UserManageTable.vue'
 import AddUser from '@/views/user/components/AddUser.vue'
 import SearchUser from '@/views/user/components/Search.vue'
-// import { formMixins } from '@/js/mixins'
+import { formMixin } from '@/js/mixins'
 
 export default {
   name: 'UserManage',
@@ -38,7 +38,7 @@ export default {
     UserManageTable,
     AddUser
   },
-  // mixins: [formMixins],
+  mixins: [formMixin],
   data () {
     return {
       params: {
@@ -66,15 +66,16 @@ export default {
     },
     add () {
       let params = JSON.parse(JSON.stringify(this.addUserForm))
-      // let flag = this.$refs.searchUser.checkForm()
-
+      let flag = this.$refs.searchUser.checkForm('form')
+      if (!flag) {
+        return
+      }
       Service.USER.addUser(params).then(rsp => {
         Utils.showSuccessMsg('添加成功！初始秘密为123456')
         this.addUserDialogFormVisible = false
         this.$refs.table.getList(this.params)
       }).catch(error => {
         this.$log(error)
-        // Utils.showFailMsg('添加失败！')
         this.addUserDialogFormVisible = false
       })
     },

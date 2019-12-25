@@ -106,6 +106,7 @@ export default {
         _this.innerHeight = window.innerHeight
       }
     }
+    this.getUserInfo()
   },
   computed: {
     // ...mapGetters(['removeNavTab']),
@@ -124,6 +125,11 @@ export default {
     }
   },
   methods: {
+    getUserInfo () {
+      if (sessionStorage._id) {
+        this.$store.dispatch('getUserInfo', sessionStorage._id)
+      }
+    },
     currentRouteInfo (routeName) {
       var arr = [];
       (function fn (key, value, items, resultArr) {

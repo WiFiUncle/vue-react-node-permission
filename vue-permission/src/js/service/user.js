@@ -42,8 +42,8 @@ export default {
   /**
    * 获取用户信息
    */
-  getUserInfo (params) {
-    let url = API.USER.GET_USER_INFO + params._id
+  getUserInfo (_id) {
+    let url = API.USER.GET_USER_INFO + _id
     return request({
       url: url,
       method: 'get'
