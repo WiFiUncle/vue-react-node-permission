@@ -5,12 +5,12 @@ import Service from '@/js/service/index'
 import Utils from './utils/index'
 import Config from './config/index'
 
-import { formMixin } from '@/js/mixins/form'
+import CommonMixins from '@/js/mixins/index'
 // import paginationMixin from "@/js/mixins/paginationMixin";
 
 const Log = function (info) {
   console.log(info)
 }
 export {
-  Vue, axios, Log, Utils, Config, formMixin, Service
+  Vue, axios, Log, Utils, Config, CommonMixins, Service
 }

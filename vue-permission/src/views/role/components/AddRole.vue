@@ -19,12 +19,12 @@
 </template>
 
 <script>
-// import fromMixins from '@/js/mixins/form'
+import fromMixins from '@/js/mixins/form'
 export default {
   name: 'AddUser',
   components: {
   },
-  // mixins: [fromMixins],
+  mixins: [fromMixins],
   props: {
     value: {
       type: Object,
@@ -91,14 +91,6 @@ export default {
     init () {
       this.defaultRules = this.roles ? this.roles : this.defaultRules
       this.form = {...this.form, ...this.value}
-    },
-    checkForm () {
-      return this.$refs['form'].validate((valid) => {
-        return valid
-      })
-    },
-    resetForm (formName) {
-      this.$refs['form'].resetFields()
     }
   }
 }

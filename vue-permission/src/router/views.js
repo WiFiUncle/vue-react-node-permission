@@ -1,5 +1,5 @@
 
-import User from '@/views/user'
+import User from '@/views/user/Index'
 import Menu from '@/views/menu'
 import Role from '@/views/role/Index'
 export default [{

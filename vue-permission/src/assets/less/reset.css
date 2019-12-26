@@ -1,0 +1,53 @@
+/**
+ * Created By wifi_uncle on 2019/12/26
+ */
+body, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, p, blockquote, th, td {
+  margin:0;
+  padding:0;
+}
+h1, h2, h3, h4, h4, h5 {
+  margin:0;
+  padding:0;
+}
+body {
+}
+select {
+  font-size:12px;
+}
+table {
+  border-collapse:collapse;
+}
+fieldset, img {
+  border:0 none;
+}
+fieldset {
+  margin:0;
+  padding:0;
+}
+fieldset p {
+  margin:0;
+  padding:0 0 0 8px;
+}
+legend {
+  display:none;
+}
+address, caption, em, strong, th, i {
+  font-style:normal;
+  font-weight:400;
+}
+table caption {
+  margin-left:-1px;
+}
+hr {
+}
+ol, ul {
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+}
+caption, th {
+  text-align:left;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content:"";
+}

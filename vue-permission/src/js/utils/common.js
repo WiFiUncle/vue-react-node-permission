@@ -80,5 +80,10 @@ export default {
         })
       })
     })
+  },
+  deepClone (obj) {
+    if (obj && obj instanceof Object) {
+      return JSON.parse(JSON.stringify(obj))
+    }
   }
 }

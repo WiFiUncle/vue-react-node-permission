@@ -3,7 +3,7 @@ export default {
   methods: {
     checkForm (formName) {
       return this.$refs[formName].validate((valid) => {
-        return valid
+        return Promise.resolve(valid)
       })
     },
     resetForm (formName) {

@@ -3,8 +3,12 @@
 */
 <template>
     <div>
-      <ul>
-        <li>dddd</li>
+      <ul >
+        <li v-for="item in showItem"
+          :key="item.key">
+          <span>{{item.name}}</span>
+          <span>{{userInfo[item.key]}}</span>
+        </li>
       </ul>
     </div>
 </template>
@@ -24,13 +28,22 @@ export default {
     return {
       showItem: [{
         name: '用户名',
-        key: ''
+        key: 'username'
+      }, {
+        name: '邮箱',
+        key: 'email'
+      }, {
+        name: '电话',
+        key: 'telephone'
+      }, {
+        name: '住址',
+        key: 'address'
       }]
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  @import "../../../assets/less/common";
 </style>
