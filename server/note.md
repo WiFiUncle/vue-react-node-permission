@@ -40,7 +40,7 @@ const id = ctx.params.id //GET
 ### 查询列表 过滤某个字段
 
 ```js
-
+    
 let options = {
     projection: {password: 0}
 }

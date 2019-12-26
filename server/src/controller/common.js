@@ -7,7 +7,7 @@ const DB = require('../db.js')
 const { ResultSuccessView, ResultFailView } = require('../result.js')
 const createToken = require('../token/create-token.js')
 const { COMMON_CODE } = require('../code/index.js')
-
+const {IS_DELETED} = require('../config')
 // 数据库的操作
 
 // 登录
@@ -20,7 +20,7 @@ const login = async (ctx) => {
   })
   console.log('1111111111111111')
   doc = doc[0]
-  if (!doc) {
+  if (!doc || doc.isDeleted === IS_DELETED) {
     ctx.body = new ResultFailView({...COMMON_CODE.NAME_IS_NOT_EXIST})
   } else if (doc.password === password) {
     // 生成一个新的token,并存到数据库

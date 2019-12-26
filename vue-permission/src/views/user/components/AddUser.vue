@@ -25,12 +25,10 @@
 
 <script>
 import { Utils } from '@/js/base'
-import fromMixins from '@/js/mixins/form'
 export default {
   name: 'AddUser',
   components: {
   },
-  mixins: [fromMixins],
   props: {
     value: {
       type: Object,
@@ -63,7 +61,7 @@ export default {
       defaultRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
@@ -87,12 +85,12 @@ export default {
       this.defaultRules = Object.keys(this.roles).length ? this.roles : this.defaultRules
       this.form = {...this.form, ...this.value}
     },
-    checkForm (formName) {
-      return this.$refs[formName].validate((valid) => {
-        return valid
-      })
-    },
-    resetForm (formName) {
+    // checkForm (formName, cb) {
+    //   return this.$refs[formName].validate((valid) => {
+    //
+    //   })
+    // },
+    resetForm (formName = 'form') {
       this.$refs['form'].resetFields()
     }
   },
