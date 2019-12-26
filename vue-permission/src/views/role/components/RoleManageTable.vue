@@ -97,7 +97,7 @@ export default {
         _this.pagination.total = rsp.data.total
         _this.loading = false
       }).catch(error => {
-        Utils.Log(error)
+        Utils.Common.Log(error)
         _this.loading = false
       })
     },
@@ -126,16 +126,16 @@ export default {
     },
     deleteBtnClick (row) {
       const _this = this
-      Utils.Confirm({
+      Utils.Common.Confirm({
         tips: '确认永久删除' + row.username + '吗?'
       }).then(() => {
         Service.USER.deleteUser({
           _id: row._id
         }).then(rsp => {
-          Utils.showSuccessMsg('删除成功！')
+          Utils.Common.showSuccessMsg('删除成功！')
           _this.getList()
         }).catch(() => {
-          // Utils.showFailMsg('删除失败！')
+          // Utils.Common.showFailMsg('删除失败！')
         })
       })
     },
@@ -149,7 +149,7 @@ export default {
     updateUser (row) {
       const _this = this
       Service.USER.updateUserInfo(row).then(rsp => {
-        Utils.showSuccessMsg('更新成功！')
+        Utils.Common.showSuccessMsg('更新成功！')
         _this.userInfoVisible = false
         _this.getList()
       })

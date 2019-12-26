@@ -67,12 +67,12 @@ export default {
       // let flag = this.$refs.searchUser.checkForm()
 
       Service.USER.addUser(params).then(rsp => {
-        Utils.showSuccessMsg('添加成功！')
+        Utils.Common.showSuccessMsg('添加成功！')
         this.addUserDialogFormVisible = false
         this.$refs.table.getList(this.params)
       }).catch(error => {
         this.$log(error)
-        // Utils.showFailMsg('添加失败！')
+        // Utils.Common.showFailMsg('添加失败！')
         this.addUserDialogFormVisible = false
       })
     },

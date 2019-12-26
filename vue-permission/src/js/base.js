@@ -1,10 +1,8 @@
 
 import Vue from 'vue'
-
 import axios from 'axios'
-// import service from "./request";
 import Service from '@/js/service/index'
-import Utils from './utils'
+import Utils from './utils/index'
 import Config from './config/index'
 
 import { formMixin } from '@/js/mixins/form'

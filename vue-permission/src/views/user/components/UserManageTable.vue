@@ -12,7 +12,7 @@
         <el-button @click="deleteBtnClick(scope.row)" type="danger" size="mini">删除</el-button>
       </div>
     </CommonTable>
-    <!--用户弹框-->
+    <!--修改弹框-->
     <el-dialog :title="titleDialog" :visible.sync="userInfoVisible"
                width="400px">
       <add-user v-model="userInfo" :hide-item="hideItem"></add-user>
@@ -21,6 +21,11 @@
         <el-button type="primary" @click="confirmUserInfo()">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="用户详情" :visible.sync="userDetailVisible"
+               width="370px">
+<!--      <user-detail user-info="userInfo"></user-detail>-->
+    </el-dialog>
+
   </div>
 </template>
 
@@ -28,6 +33,8 @@
 import {Service, Utils, Config} from '@/js/base'
 import CommonTable from '@/components/CommonTable.vue'
 import AddUser from '@/views/user/components/AddUser.vue'
+// import UserDetail from '@/views/user/components/UserDetail.vue'
+
 const HANDLE_TYPE = {
   DETAIL: 'DETAIL',
   UPDATE: 'UPDATE',
@@ -38,6 +45,7 @@ export default {
   components: {
     CommonTable,
     AddUser
+    // UserDetail
   },
   props: {
   },
@@ -77,7 +85,8 @@ export default {
       titleDialog: '',
       userInfoVisible: false,
       hideItem: {password: true},
-      HANDLE_TYPE: HANDLE_TYPE
+      HANDLE_TYPE: HANDLE_TYPE,
+      userDetailVisible: false
     }
   },
   mounted () {
@@ -97,7 +106,7 @@ export default {
         _this.pagination.total = rsp.data.total
         _this.loading = false
       }).catch(error => {
-        Utils.Log(error)
+        Utils.Common.Log(error)
         _this.loading = false
       })
     },
@@ -118,22 +127,20 @@ export default {
       this.handleType = HANDLE_TYPE.DETAIL
       Service.USER.getUserInfo(row._id).then(rsp => {
         _this.titleDialog = '查看详情'
-        _this.userInfoVisible = true
+        _this.userDetailVisible = true
         _this.userInfo = rsp.data
       })
     },
     deleteBtnClick (row) {
       const _this = this
-      Utils.Confirm({
+      Utils.Common.Confirm({
         tips: '确认永久删除' + row.username + '吗?'
       }).then(() => {
         Service.USER.deleteUser({
           _id: row._id
         }).then(rsp => {
-          Utils.showSuccessMsg('删除成功！')
+          Utils.Common.showSuccessMsg('删除成功！')
           _this.getList()
-        }).catch(() => {
-          // Utils.showFailMsg('删除失败！')
         })
       })
     },
@@ -147,7 +154,7 @@ export default {
     updateUser (row) {
       const _this = this
       Service.USER.updateUserInfo(row).then(rsp => {
-        Utils.showSuccessMsg('更新成功！')
+        Utils.Common.showSuccessMsg('更新成功！')
         _this.userInfoVisible = false
         _this.getList()
       })

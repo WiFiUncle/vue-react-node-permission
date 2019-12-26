@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-form :model="form" :inline="inline" :rules="defaultRules" ref="form">
+    <el-form :model="form"
+             :label-position="labelPosition"
+             label-width="80px"
+             :inline="inline" :rules="defaultRules" ref="form">
       <el-form-item label="用户名" prop="username" v-if="!hideItem.username">
         <el-input v-model="form.username"></el-input>
       </el-form-item>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import { Utils } from '@/js/base'
 import fromMixins from '@/js/mixins/form'
 export default {
   name: 'AddUser',
@@ -53,6 +57,7 @@ export default {
   },
   data () {
     return {
+      labelPosition: 'right',
       form: {
       },
       defaultRules: {
@@ -61,10 +66,12 @@ export default {
           { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' }
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { validator: Utils.Validate.email, trigger: 'blur' }
         ],
         telephone: [
-          { required: false, message: '请输入手机号', trigger: 'blur' }
+          { required: false, message: '请输入手机号', trigger: 'blur' },
+          { validator: Utils.Validate.telephone, trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }

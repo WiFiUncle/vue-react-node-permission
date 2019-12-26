@@ -13,8 +13,8 @@
         ref="table"
       ></user-manage-table>
       <!--添加用户弹框-->
-      <el-dialog :title="titleDialog" :visible.sync="addUserDialogFormVisible"
-                 width="400px">
+      <el-dialog :title="titleDialog" :visible.sync="addUserVisible"
+                 width="370px">
         <add-user v-model="addUserForm" ref="searchUser"></add-user>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cancelAddUser">取 消</el-button>
@@ -25,11 +25,10 @@
 </template>
 <script>
 
-import { Utils, Service } from '@/js/base'
+import { Utils, Service, formMixin } from '@/js/base'
 import UserManageTable from '@/views/user/components/UserManageTable.vue'
 import AddUser from '@/views/user/components/AddUser.vue'
 import SearchUser from '@/views/user/components/Search.vue'
-import { formMixin } from '@/js/mixins'
 
 export default {
   name: 'UserManage',
@@ -50,7 +49,7 @@ export default {
       titleDialog: '',
       addUserForm: {
       },
-      addUserDialogFormVisible: false
+      addUserVisible: false
     }
   },
   mounted () {
@@ -62,25 +61,25 @@ export default {
     },
     addBtnClick () {
       this.titleDialog = '添加用户'
-      this.addUserDialogFormVisible = true
+      this.addUserVisible = true
     },
     add () {
       let params = JSON.parse(JSON.stringify(this.addUserForm))
       let flag = this.$refs.searchUser.checkForm('form')
-      if (!flag) {
-        return
+      if (flag) {
+        Service.USER.addUser(params).then(rsp => {
+          Utils.Common.showSuccessMsg('添加成功！初始秘密为123456')
+          this.addUserVisible = false
+          this.$refs.table.getList(this.params)
+        }).catch(error => {
+          this.$log(error)
+          this.addUserVisible = false
+        })
       }
-      Service.USER.addUser(params).then(rsp => {
-        Utils.showSuccessMsg('添加成功！初始秘密为123456')
-        this.addUserDialogFormVisible = false
-        this.$refs.table.getList(this.params)
-      }).catch(error => {
-        this.$log(error)
-        this.addUserDialogFormVisible = false
-      })
     },
     cancelAddUser () {
-      this.addUserDialogFormVisible = false
+      this.addUserVisible = false
+      this.$refs.searchUser.resetForm('form')
     },
     search () {
       this.$refs.table.getList(this.params)

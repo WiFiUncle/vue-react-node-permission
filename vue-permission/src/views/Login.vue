@@ -36,7 +36,7 @@ export default {
     return {
       form: {
         username: 'admin',
-        pwd: '123456'
+        pwd: '123'
       },
       activeBgIndex: 0,
       bgImgs: [
@@ -47,11 +47,20 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.init()
+  },
   methods: {
+    init () {
+      const index = sessionStorage.activeBgIndex
+      if (index) {
+        this.activeBgIndex = Number.parseInt(index)
+      }
+    },
     login () {
       let _this = this
       if (!this.form.username || !this.form.pwd) {
-        Utils.showWarnMsg('请输入账号或密码')
+        Utils.Common.showWarnMsg('请输入账号或密码')
         return
       }
       this.$store.dispatch('login', {
@@ -66,20 +75,18 @@ export default {
         }
       })
         .catch(e => {
-          let msg = '帐号或密码错误'
-          msg = (e && e.data && e.data.message) ? e.data.message : msg
-          Utils.reqFailMsg(msg, e)
-          console.log(e)
+          this.$log(e)
         })
     },
     loginSuccess () {
       let _this = this
-      Utils.showSuccessMsg('登录成功')
+      Utils.Common.showSuccessMsg('登录成功')
       _this.$router.push({name: 'user'})
     },
     updateBg () {
       let index = this.activeBgIndex + 1
       this.activeBgIndex = index > this.bgImgs.length - 1 ? 0 : index
+      sessionStorage.activeBgIndex = this.activeBgIndex
     }
   }
 }
