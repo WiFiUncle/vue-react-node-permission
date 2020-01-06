@@ -6,8 +6,8 @@
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
-        type="index"
-        label="序号"
+        :type="type"
+        :label="indexLabel"
         width="50">
       </el-table-column>
       <el-table-column
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import { Config } from '@/js/base'
 import MyPagination from '@/components/MyPagination.vue'
 import { paginationMixin } from '@/js/mixins'
 
@@ -60,6 +59,14 @@ export default {
       default: () => {
         return []
       }
+    },
+    type: {
+      type: String,
+      default: ''
+    },
+    indexLabel: {
+      type: String,
+      default: ''
     },
     /**
      * 列
@@ -92,7 +99,9 @@ export default {
       default: () => {
         return {
           total: 0,
-          current: 1
+          current: 1,
+          pageSize: 10, // Config.PAGE_SIZE,
+          pageNo: 1 // Config.PAGE_NO
         }
       }
     },
@@ -107,8 +116,8 @@ export default {
   data () {
     return {
       params: {
-        pageSize: Config.PAGE_SIZE,
-        pageNo: Config.PAGE_NO
+        pageSize: this.pagination.pageSize,
+        pageNo: this.pagination.pageNo
       }
     }
   },

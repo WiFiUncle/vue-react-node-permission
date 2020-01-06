@@ -5,6 +5,7 @@ const app = new Koa()
 const router = require('./src/routes')
 const cors = require('koa2-cors')
 const Config = require('./src/config.js')
+
 app.use(cors({
   origin: function (ctx) {
     return '*' // 允许来自所有域名请求
@@ -17,6 +18,18 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
 
+app.use((req, res, next) => {
+  try {
+    // eslint-disable-next-line no-mixed-spaces-and-tabs,no-tabs
+    console.log('dddddddd')
+    const apiInfo = {
+      date: new Date(),
+      origin: req.headers.origin
+    }
+  } catch (err) {
+    console.log('API记录出错', err)
+  }
+})
 // 配置post提交数据的中间件
 app.use(bodyParser())
 

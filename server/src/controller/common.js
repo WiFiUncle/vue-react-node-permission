@@ -18,7 +18,6 @@ const login = async (ctx) => {
   let doc = await DB.find(collectionName, {
     username
   })
-  console.log('1111111111111111')
   doc = doc[0]
   if (!doc || doc.isDeleted === IS_DELETED) {
     ctx.body = new ResultFailView({...COMMON_CODE.NAME_IS_NOT_EXIST})

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CommonTable
+    <common-table
       :data="tableData"
       :columns="columns"
       :loading="loading"
@@ -11,7 +11,7 @@
         <el-button @click="updateBtnClick(scope.row)" type="warning" size="mini" >修改</el-button>
         <el-button @click="deleteBtnClick(scope.row)" type="danger" size="mini">删除</el-button>
       </div>
-    </CommonTable>
+    </common-table>
     <!--修改弹框-->
     <el-dialog :title="titleDialog" :visible.sync="userInfoVisible"
                width="400px">
