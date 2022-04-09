@@ -20,7 +20,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.5",
     "nodemon": "^1.19.4"
